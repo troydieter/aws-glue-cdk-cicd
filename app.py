@@ -27,7 +27,7 @@ env = core.Environment(region=config["awsAccount"]["awsRegion"])
 PipelineCDKStack(
     app,
     "PipelineCDKStack",
-    description='This stack creates a CICD pipeline using  AWS CodeCommit, AWS CodeBuild and AWS CodePipeline.',
+    description='This stack creates a CICD pipeline using GitHub, AWS CodeBuild and AWS CodePipeline.',
     config=config,
     env=env,
     stack_name=config["codepipeline"]["pipelineStackName"]

@@ -2,13 +2,13 @@
 
 ### About The Project
 
-This repository demonstrates building a Continuous Integration and Continuous Delivery (CI/CD) pipeline using AWS CodeCommit, AWS CodeBuild and AWS CodePipeline to provision AWS Glue based data pipelines using AWS Cloud Development Kit (CDK). 
+This repository demonstrates building a Continuous Integration and Continuous Delivery (CI/CD) pipeline using GitHub, AWS CodeBuild and AWS CodePipeline to provision AWS Glue based data pipelines using AWS Cloud Development Kit (CDK). 
 
 Please refer to the accompanying post [Build, Test and Deploy ETL solutions using AWS Glue and AWS CDK based CI/CD pipelines](https://aws.amazon.com/blogs/big-data/build-test-and-deploy-etl-solutions-using-aws-glue-and-aws-cdk-based-ci-cd-pipelines/) for additional information.
 
 ### Solution Overview
 
-The AWS CDK based solution deploys a CI/CD pipeline using AWS CodeCommit, AWS CodeBuild and AWS CodePipeline, executes [docker based PyTests](https://aws.amazon.com/blogs/big-data/develop-and-test-aws-glue-version-3-0-jobs-locally-using-a-docker-container/) and deploys a data pipeline using AWS Glue. The data pipeline consists of AWS Glue Workflow, Triggers, Jobs and Crawlers. The  data pipeline uses [COVID-19 Harmonized Data](https://registry.opendata.aws/talend-covid19/) managed by [Talend / Stitch](https://www.stitchdata.com/) to construct a data pipeline.
+The AWS CDK based solution deploys a CI/CD pipeline using GitHub, AWS CodeBuild and AWS CodePipeline, executes [docker based PyTests](https://aws.amazon.com/blogs/big-data/develop-and-test-aws-glue-version-3-0-jobs-locally-using-a-docker-container/) and deploys a data pipeline using AWS Glue. The data pipeline consists of AWS Glue Workflow, Triggers, Jobs and Crawlers. The  data pipeline uses [COVID-19 Harmonized Data](https://registry.opendata.aws/talend-covid19/) managed by [Talend / Stitch](https://www.stitchdata.com/) to construct a data pipeline.
 
 ### Architecture Diagram
 
