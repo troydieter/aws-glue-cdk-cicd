@@ -1,9 +1,3 @@
-# GitHub Migration Guide
-
-This guide explains how to migrate from AWS CodeCommit to GitHub for your CDK Glue pipeline.
-
-## Changes Made
-
 ### 1. Pipeline Configuration (`pipeline.py`)
 - Removed `aws_codecommit` import and dependencies
 - Replaced `CodePipelineSource.code_commit()` with `CodePipelineSource.git_hub()`
@@ -54,14 +48,6 @@ codepipeline:
 cdk deploy PipelineCDKStack
 ```
 
-## Benefits of GitHub Integration
-
-1. **No Archive Workarounds**: GitHub integration works seamlessly with CDK assets
-2. **Better Collaboration**: GitHub provides superior collaboration features
-3. **Webhook Support**: Automatic pipeline triggers on code changes
-4. **Modern SCM**: Access to GitHub's ecosystem and features
-5. **No AWS CodeCommit Costs**: Eliminate CodeCommit repository charges
-
 ## Supported SCM Providers
 
 CodeStar/CodePipeline supports these modern SCM providers:
@@ -82,11 +68,3 @@ The pipeline automatically gets the necessary permissions to:
 - Access the GitHub repository via the stored token
 - Trigger builds on code changes
 - Deploy infrastructure changes
-
-## Next Steps
-
-Consider these additional improvements:
-1. Set up branch protection rules in GitHub
-2. Configure GitHub Actions for additional CI/CD workflows
-3. Enable GitHub security features like Dependabot
-4. Set up GitHub webhooks for real-time pipeline triggers
