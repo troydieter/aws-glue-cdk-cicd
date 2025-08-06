@@ -4,7 +4,6 @@
 from typing import Dict
 from aws_cdk import (
     core,
-    aws_codecommit as codecommit,
     aws_iam as iam
 )
 from aws_cdk.pipelines import (
@@ -13,28 +12,18 @@ from aws_cdk.pipelines import (
     CodeBuildStep
 )
 from etl.infrastructure import CdkGlueBlogStage
-from helper import create_archive
 
 
 class PipelineCDKStack(core.Stack):
 
     def create_pipeline(self, config):
-        # Archive need to be created since there's an issue with creating assets for codecommit
-        # https://github.com/aws/aws-cdk/issues/19012
-        archive_file = create_archive()
-
-        codecommit_repo = codecommit.Repository(
-            self, "Repository",
-            repository_name=config['codepipeline']['repoName'],
-            code=codecommit.Code.from_zip_file(
-                file_path=archive_file,
-                branch=config['codepipeline']['repoBranch']
+        # GitHub source configuration
+        github_source = CodePipelineSource.git_hub(
+            repo_string=config['codepipeline']['githubRepo'],
+            branch=config['codepipeline']['repoBranch'],
+            authentication=core.SecretValue.secrets_manager(
+                config['codepipeline']['githubTokenSecret']
             )
-        )
-
-        i_codecommit_repo = codecommit.Repository.from_repository_name(
-            self, "ImportedBlogCode",
-            codecommit_repo.repository_name
         )
 
         # https://aws.amazon.com/blogs/big-data/develop-and-test-aws-glue-version-3-0-jobs-locally-using-a-docker-container/
@@ -44,10 +33,7 @@ class PipelineCDKStack(core.Stack):
             docker_enabled_for_synth=True,
             synth=CodeBuildStep(
                 "PyTest_CdkSynth",
-                input=CodePipelineSource.code_commit(
-                    repository=i_codecommit_repo,
-                    branch=config['codepipeline']['repoBranch']
-                ),
+                input=github_source,
                 install_commands=[
                     "pip install -r requirements.txt",
                     "npm install -g aws-cdk",
@@ -97,7 +83,6 @@ class PipelineCDKStack(core.Stack):
             )
         )
         pipeline.add_stage(CdkGlueBlogStage(self, 'CdkGlueStage', config=config))
-        pipeline.node.add_dependency(codecommit_repo)
 
     def __init__(self, scope: core.Construct, construct_id: str, config: Dict, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)

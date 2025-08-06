@@ -1,3 +1,6 @@
+# Example configuration for GitHub integration
+# Copy this to default-config.yaml and customize for your environment
+
 # Common tags applied to all resources
 tags:
   stack-name: covid19-glue-workflow
@@ -73,11 +76,15 @@ dataSourcePath:
   # S3 bucket for Glue Temp
   s3PathGlueTemp : 'temp-glue/'
 
+# GitHub Configuration
 codepipeline:
   applicationName: 'cdk-covid19-glue'
   pipelineStackName: 'cdk-covid19-glue-stack-pipeline'
   glueStackName: 'cdk-covid19-glue-stack'
-  githubRepo: 'your-github-username/cdk-covid19-glue-blog'  # Format: owner/repo-name
-  repoBranch: 'main'  # Updated to use 'main' as default branch
-  githubTokenSecret: 'github-token'  # AWS Secrets Manager secret name containing GitHub personal access token
-  pipelineNotification: 'username@mail.com'
+  
+  # GitHub Settings - CUSTOMIZE THESE VALUES
+  githubRepo: 'your-github-username/your-repo-name'  # Replace with your GitHub repository
+  repoBranch: 'main'  # Your main branch name
+  githubTokenSecret: 'github-token'  # AWS Secrets Manager secret name containing your GitHub token
+  
+  pipelineNotification: 'username@mail.com'  # Replace with your email
